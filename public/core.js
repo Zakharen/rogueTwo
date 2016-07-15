@@ -9,7 +9,9 @@ function mainController($scope, $http) {
         $http.post('/api/login', $scope.formUserData)
             .success(function(data) {
                 debugger;
-                var resp = data;
+                var resp = JSON.parse(data.body);
+                var msg = 'Email > ' + resp.Email + '\nLoginProvider > ' + resp.LoginProvider + '\nLoginTicket > ' + resp.LoginTicket;
+                alert(msg);
                 $scope.formData = {}; // clear the form so our user is ready to enter another
                 console.log(data);
             })

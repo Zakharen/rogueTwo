@@ -3,6 +3,8 @@
     // set up ========================
     var express  = require('express');
     var app      = express();                               // create our app w/ express
+    var request = require('request');                       // create request app
+    //var fs = require('fs');                                 // create app to file stream
     var mongoose = require('mongoose');                     // mongoose for mongodb
     var morgan = require('morgan');             // log requests to the console (express4)
     var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
@@ -39,8 +41,27 @@
     app.post('/api/login', function(req, res) {
         // get login data, information comes from AJAX request from Angular
         var owner = new Login(req.body.login, req.body.password);
+        var jResult = {};
 
-        res.json(owner);
+        //Lets configure and request
+        request({
+            url: 'http://epwebapi20160706110422.azurewebsites.net/api/Account/Login', //URL to hit
+            qs: {login: req.body.login, password: req.body.password }, //Query string data
+            method: 'POST',
+            headers: {
+                'Content-Type': 'MyContentType',
+                'Custom-Header': 'Custom Value'
+            }
+        }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            } else {
+                res.json(response);
+                console.log(response.statusCode, body);
+            }
+        });
+
+        //res.json(owner);
     });
 
     // application -------------------------------------------------------------
