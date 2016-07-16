@@ -176,8 +176,41 @@ body, html {
                 <input type="password" id="password" class="form-control" placeholder="Password" required ng-model="formUserData.password">
                 
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" ng-click="loginUser()">Sign in</button>
-            </form><!-- /form -->            
+
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" ng-click="getTicket()">get ticket</button>
+
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" ng-click="getOwners()">get Owners</button>
+            </form><!-- /form -->
+            <!--ul>
+                <li ng-repeat="owner in owners | orderBy: 'OwnerId'">{{owner.OwnerId}}: {{owner.OwnerName}}</li>
+            </ul-->
         </div><!-- /card-container -->
     </div><!-- /container -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Address</th>
+            <th>RegistrationDate</th>
+            <th>StatusId</th>
+            <th>TypeId</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="owner in owners | orderBy: 'OwnerId'">
+            <td>{{owner.OwnerId}}</td>
+            <td>{{owner.OwnerName}}</td>
+            <td>{{owner.OwnerType}}</td>
+            <td>{{owner.OwnerStatus}}</td>
+            <td>{{owner.OwnerAddress}}</td>
+            <td>{{owner.OwnerRegistrationDate}}</td>
+            <td>{{owner.OwnerStatusId}}</td>
+            <td>{{owner.OwnerTypeId}}</td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>

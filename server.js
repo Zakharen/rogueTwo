@@ -22,6 +22,9 @@
     app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
     app.use(methodOverride());
 
+
+
+
     // define model =================
     /*var Todo = mongoose.model('Todo', {
         text : String
@@ -31,6 +34,7 @@
         this.password = password;
     };
 
+    var ticket = "";
 
     // routes ======================================================================
 
@@ -42,7 +46,6 @@
         // get login data, information comes from AJAX request from Angular
         var owner = new Login(req.body.login, req.body.password);
         var jResult = {};
-
         //Lets configure and request
         request({
             url: 'http://epwebapi20160706110422.azurewebsites.net/api/Account/Login', //URL to hit
@@ -57,11 +60,42 @@
                 console.log(error);
             } else {
                 res.json(response);
-                console.log(response.statusCode, body);
+                console.log(req.session);
+                var objBody = JSON.parse(body);
+                ticket = objBody.LoginTicket;
+                //console.log(response.statusCode, body);
             }
         });
 
         //res.json(owner);
+    });
+
+    //get owners
+    app.get('/api/getowners', function(req, res) {
+        var ticket = req.query.ticket;
+        console.log(ticket);
+        var url = 'http://epwebapi20160706110422.azurewebsites.net/api/Owners?LoginTicket='+ticket;
+        console.log(url);
+        request({
+            url: url, //URL to hit
+            //qs: {LoginTicket: req.body.ticket }, //Query string data
+            method: 'GET',
+            headers: {
+                'Content-Type': 'MyContentType',
+                'Custom-Header': 'Custom Value'
+            }
+        }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            } else {
+                res.json(response);
+                //console.log(response.statusCode, body);
+            }
+        });
+    });
+
+    app.get('/api/getticket', function(req, res) {
+        res.json(ticket);
     });
 
     // application -------------------------------------------------------------
