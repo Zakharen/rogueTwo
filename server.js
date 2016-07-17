@@ -23,8 +23,6 @@
     app.use(methodOverride());
 
 
-
-
     // define model =================
     /*var Todo = mongoose.model('Todo', {
         text : String
@@ -94,14 +92,37 @@
         });
     });
 
+    app.get('/api/getterminals', function(req, res) {
+        var ticket = req.query.ticket;
+        var owner = req.query.owner;
+        var url = 'http://epwebapi20160706110422.azurewebsites.net/api/Terminal?LoginTicket='+ticket+'&OwnerId='+owner;
+        console.log(url);
+        request({
+            url: url, //URL to hit
+            //qs: {LoginTicket: req.body.ticket }, //Query string data
+            method: 'GET',
+            headers: {
+                'Content-Type': 'MyContentType',
+                'Custom-Header': 'Custom Value'
+            }
+        }, function(error, response, body){
+            if(error) {
+                console.log(error);
+            } else {
+                res.json(response);
+                //console.log(response.statusCode, body);
+            }
+        });
+    });
+
     app.get('/api/getticket', function(req, res) {
         res.json(ticket);
     });
 
     // application -------------------------------------------------------------
-    app.get('*', function(req, res) {
-        res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
-    });
+    /*app.get('*', function(req, res) {
+        res.sendfile('./public/dashboard.html'); // load the single view file (angular will handle the page changes on the front-end)
+    });*/
 
     // listen (start app with node server.js) ======================================
     app.listen(8077);

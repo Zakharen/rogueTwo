@@ -1,15 +1,17 @@
 {
-    "name": "rogue-two",
-    "version"      : "0.0.0",
-    "description"  : "Rogue Two application.",
-    "main"         : "server.js",
-    "author"       : "Oz",
-    "dependencies" : {
-        "body-parser"    : "^1.4.3",
-        "express"        : "^4.13.4",
-        "request"        : "^2.73.0",
-        "method-override": "^2.1.3",
-        "mongoose"       : "^4.4.12",
-        "morgan"         : "^1.1.1"
-    }
+  "name": "rogue-two",
+  "version": "0.0.0",
+  "description": "Rogue Two application.",
+  "main": "server.js",
+  "author": "Oz",
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-ui-grid": "^3.2.6",
+    "body-parser": "^1.4.3",
+    "express": "^4.13.4",
+    "method-override": "^2.1.3",
+    "mongoose": "^4.4.12",
+    "morgan": "^1.1.1",
+    "request": "^2.73.0"
+  }
 }
